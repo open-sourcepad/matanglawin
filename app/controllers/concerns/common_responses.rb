@@ -7,6 +7,10 @@ module CommonResponses
     render json: serializer.new(object).serializable_hash
   end
 
+  def render_success
+    render json: {}, status: 200
+  end
+
   def render_error object
     render json: { errors: object.errors.full_messages }, status: 400
   end

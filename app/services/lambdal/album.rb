@@ -11,13 +11,13 @@ module Lambdal
       perform_get path
     end
 
-    def train_album mytype
+    def train_album mytype, lambdal_id="mil", image=File.new(Rails.root.join("public","images",'mil.jpg'))
       path = "#{BASE_URL}album_train"
       params= {
         album: mytype,
         albumkey: ENV.fetch("#{mytype}_KEY"),
-        entryid: 'mil',
-        files: File.new(Rails.root.join("public","images",'mil.jpg'))
+        entryid: lambdal_id,
+        files: image
       }
       perform_post path, params
     end

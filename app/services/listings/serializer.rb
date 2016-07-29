@@ -6,7 +6,8 @@ module Listings
     end
 
     def serializable_hash
-      @object.attributes
+      hash = @object.attributes
+      hash
     end
   end
 end

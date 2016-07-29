@@ -13,6 +13,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  mytype      :string
+#  image_url   :string
 #
 
 class Listing < ApplicationRecord
