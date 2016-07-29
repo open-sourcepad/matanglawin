@@ -1,9 +1,11 @@
 module Lambdal
   module Utils
-    require 'unirest'
-    def perform_get path, params
-      response = Unirest.get BASE_URL+path, parameters: params, headers: get_headers
-      binding.pry
+    def perform_get path
+      response = RestClient::Request.execute(method: :get, url: path, headers: get_headers)
+      {
+        code: response.code,
+        body: JSON.parse(response)
+      }
     end
 
     def get_headers

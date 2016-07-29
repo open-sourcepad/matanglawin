@@ -1,9 +1,9 @@
 module Lambdal
+  BASE_URL = "https://lambda-face-recognition.p.mashape.com/"
   class Client
     include Utils
-    include Api
-    BASE_URL = "https://lambda-face-recognition.p.mashape.com/"
-  # These code snippets use an open-source library. http://unirest.io/ruby
+    include Album
+
     def initialize
 
     end

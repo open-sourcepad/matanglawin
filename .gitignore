@@ -35,5 +35,5 @@ config/secrets.yml
 
 # Ignore Byebug command history file.
 .byebug_history
-
 client/bower_components
+tags
