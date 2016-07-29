@@ -21,6 +21,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'ransack',             github: 'activerecord-hackery/ransack'
 gem 'draper',              '> 3.x'
+gem 'pg_search'
 
 group :development, :test do
   gem 'byebug', platform: :mri

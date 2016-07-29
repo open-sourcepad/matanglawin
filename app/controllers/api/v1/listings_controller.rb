@@ -12,7 +12,11 @@ class Api::V1::ListingsController < ApiController
   end
 
   def update
-
+    if @obj.update_attributes(get_params)
+      render_object @obj, Listings::Serializer
+    else
+      render_error @obj
+    end
   end
 
   def destroy

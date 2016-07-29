@@ -18,6 +18,14 @@
 #
 
 class Listing < ApplicationRecord
+  include PgSearch
+  pg_search_scope :full_search,
+                  against: [:name, :description, :contact],
+                  using: {
+                    :tsearch => {:prefix => true}
+                  }
+
+
   MYTYPE = %w(LOST FOUND)
 
   validates :name, presence: true
@@ -28,6 +36,14 @@ class Listing < ApplicationRecord
   before_validation :generate_lambdal_id, unless: :lambdal_id?
   belongs_to :user
 
+  def self.search(collection, query)
+    results = collection.full_search(query)
+    if results.empty?
+      collection
+    else
+      results
+    end
+  end
   private
 
   def generate_lambdal_id
