@@ -8,6 +8,14 @@ module Lambdal
       }
     end
 
+    def perform_post path, params
+      response = RestClient::Request.execute(method: :post, url: path, payload: params, headers: get_headers)
+      {
+        code: response.code,
+        body: JSON.parse(response)
+      }
+    end
+
     def get_headers
       {
         "X-Mashape-Key" => ENV.fetch('MASHAPE_KEY'),

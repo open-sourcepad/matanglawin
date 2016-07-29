@@ -3,6 +3,7 @@ module Lambdal
   class Client
     include Utils
     include Album
+    include Recognition
 
     def initialize
 
