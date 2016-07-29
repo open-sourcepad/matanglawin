@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  
+  ActiveAdmin.routes(self)
+  
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
       resource :oauth, only: %i(create)
