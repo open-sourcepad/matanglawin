@@ -9,7 +9,7 @@
 #  raw_object :text
 #
 
-class SocialIdentity < ActiveRecord::Base
+class SocialIdentity < ApplicationRecord
   belongs_to :user
   validates :uid, presence: true
   validates :provider, presence: true

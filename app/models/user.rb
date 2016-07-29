@@ -12,7 +12,7 @@
 #  updated_at         :datetime         not null
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_many :social_identities, dependent: :destroy
   validates :email, presence: true, uniqueness: true
 end
