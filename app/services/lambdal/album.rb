@@ -13,13 +13,16 @@ module Lambdal
 
     def train_album mytype, lambdal_id="mil", image_path=Rails.root.join("public","images",'mil.jpg')
       path = "#{BASE_URL}album_train"
+      attachment = Attachment.create image: File.open(image_path)
       params= {
         album: mytype,
         albumkey: ENV.fetch("#{mytype}_KEY"),
         entryid: lambdal_id,
-        files: File.new(image_path)
+        urls: "#{ENV.fetch("BASE_URL")}#{attachment.image.url}"
       }
-      perform_post path, params
+      response = perform_post path, params
+      attachment.destroy
+      response
     end
 
     def get_entry mytype, entry_id

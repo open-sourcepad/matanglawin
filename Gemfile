@@ -23,6 +23,7 @@ gem 'ransack',             github: 'activerecord-hackery/ransack'
 gem 'draper',              '> 3.x'
 gem 'pg_search'
 gem 'rails_12factor', group: :production
+gem 'paperclip'
 
 group :development, :test do
   gem 'byebug', platform: :mri
