@@ -34,13 +34,12 @@ class Api::V1::ListingsController < ApiController
   end
 
   def image_param
-    params.require(:listing).permit([:image])
+    params.require(:listing).permit(:image)
   end
 
   def process_lambdal obj
-    Lambdal::Client.new.train_album(obj.mytype, obj.lambdal_id)
+    Lambdal::Client.new.train_album(obj.mytype, obj.lambdal_id, image_param["image"].tempfile.path)
     entry = Lambdal::Client.new.get_entry(obj.mytype, obj.lambdal_id)
-    binding.pry
     obj.update_attributes image_url: entry["image"]
   end
 end
