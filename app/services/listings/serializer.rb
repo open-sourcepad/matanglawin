@@ -17,7 +17,7 @@ module Listings
         hash["match"] = lambdal_results.select{|r| r["uid"] == o["lambdal_id"]}.first.to_h["confidence"]
         collection << hash
       end
-      collection.sort_by{|object| object["match"]}.reverse
+      collection.sort_by{|object| -object["match"].to_f}
     end
   end
 end

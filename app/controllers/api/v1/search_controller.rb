@@ -24,8 +24,7 @@ class Api::V1::SearchController < ApiController
       results = lambdal_results[:body]["photos"].first["tags"].first["uids"]
       results = results.each{|result| result["uid"].gsub!(/@\w+/,"")}
       uids = results.map{|result| result["uid"]}
-      listings = Listing.search(Listing.where(lambdal_id: uids), "#{@listing.name} #{@listing.contact} #{@listing.description}")
-      format_listing(listings, results)
+      format_listing(Listing.where(lambdal_id: uids), results)
     rescue
       []
     end
