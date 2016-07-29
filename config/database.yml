@@ -1,8 +1,8 @@
 common: &common
   adapter: postgresql
   host: localhost
-  username: root
-  password: root
+  username: postgres
+  password: admin
 development:
   <<: *common
   database: b_development

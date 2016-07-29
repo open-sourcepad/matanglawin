@@ -17,6 +17,10 @@ gem 'multi_json'
 gem 'figaro'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'rest-client'
+gem 'activeadmin', github: 'activeadmin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'ransack',             github: 'activerecord-hackery/ransack'
+gem 'draper',              '> 3.x'
 
 group :development, :test do
   gem 'byebug', platform: :mri
