@@ -21,7 +21,6 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'ransack',             github: 'activerecord-hackery/ransack'
 gem 'draper',              '> 3.x'
-gem 'jquery-ui-rails', '~> 4.2.1'
 
 group :development, :test do
   gem 'byebug', platform: :mri
