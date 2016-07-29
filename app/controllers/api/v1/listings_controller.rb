@@ -48,6 +48,7 @@ class Api::V1::ListingsController < ApiController
   def process_lambdal obj
     Lambdal::Client.new.train_album(obj.mytype, obj.lambdal_id, image_param["image"].tempfile.path)
     entry = Lambdal::Client.new.get_entry(obj.mytype, obj.lambdal_id)
+    Lambdal::Client.new.rebuild_album(obj.mytype)
     obj.update_attributes image_url: entry["image"]
   end
 end
