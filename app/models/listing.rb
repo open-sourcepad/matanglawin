@@ -20,9 +20,9 @@
 class Listing < ApplicationRecord
   include PgSearch
   pg_search_scope :full_search,
-                  against: [:name, :description, :contact],
+                  against: [[:name,'A'], [:description,'B'], [:contact,'C']],
                   using: {
-                    :tsearch => {:prefix => true}
+                    :tsearch => {:prefix => true, any_word: true}
                   }
 
 
@@ -36,14 +36,6 @@ class Listing < ApplicationRecord
   before_validation :generate_lambdal_id, unless: :lambdal_id?
   belongs_to :user
 
-  def self.search(collection, query)
-    results = collection.full_search(query)
-    if results.empty?
-      collection
-    else
-      results
-    end
-  end
   private
 
   def generate_lambdal_id

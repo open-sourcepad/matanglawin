@@ -3,13 +3,13 @@ class Api::V1::SearchController < ApiController
 
   def lost
     lambdal = Lambdal::Client.new.recognize("LOST", @listing.image_url)
-    collection = query_by_listing(lambdal)
+    collection = query_by_listing(lambdal,"LOST")
     render_collection collection
   end
 
   def found
     lambdal = Lambdal::Client.new.recognize("FOUND", @listing.image_url)
-    collection = query_by_listing(lambdal)
+    collection = query_by_listing(lambdal,"FOUND")
     render_collection collection
   end
 
@@ -19,13 +19,17 @@ class Api::V1::SearchController < ApiController
     @listing = Listing.find(params[:id])
   end
 
-  def query_by_listing lambdal_results
+  def query_by_listing lambdal_results, mytype
     begin
       results = lambdal_results[:body]["photos"].first["tags"].first["uids"]
       results = results.each{|result| result["uid"].gsub!(/@\w+/,"")}
       uids = results.map{|result| result["uid"]}
-      format_listing(Listing.where(lambdal_id: uids), results)
-    rescue
+      listings = Listing.where(mytype: mytype)
+      listings = listings.where(lambdal_id: uids).to_a + listings.full_search("#{@listing.name} #{@listing.contact} #{@listing.description}").to_a
+      format_listing(listings.uniq, results)
+    rescue => e
+      Rails.logger.info e
+      Rails.logger.info e.backtrace
       []
     end
   end
