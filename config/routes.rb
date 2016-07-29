@@ -12,8 +12,8 @@ Rails.application.routes.draw do
       resource :oauth, only: %i(create)
       resources :search, only: %i() do
         collection do
-          get 'by_listing'
-          get 'by_text'
+          get 'lost'
+          get 'found'
         end
       end
       resources :listings, only: %i(create show destroy update)

@@ -9,5 +9,15 @@ module Listings
       hash = @object.attributes
       hash
     end
+
+    def serializable_group_hash lambdal_results
+      collection = []
+      @object.each do |o|
+        hash = o.attributes
+        hash["match"] = lambdal_results.select{|r| r["uid"] == o["lambdal_id"]}.first.to_h["confidence"]
+        collection << hash
+      end
+      collection
+    end
   end
 end
