@@ -1,14 +1,18 @@
 class Api::V1::ListingsController < ApiController
-  before_filter :get_obj, only: [:destroy, :show]
+  before_filter :get_obj, only: [:destroy, :show, :update]
 
   def create
-    obj = Listing.create(get_params)
+    obj = current_user.listings.create(get_params)
     if obj.valid?
       process_lambdal(obj)
       render_object obj, Listings::Serializer
     else
       render_error obj
     end
+  end
+
+  def update
+
   end
 
   def destroy

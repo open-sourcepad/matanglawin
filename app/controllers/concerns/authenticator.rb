@@ -3,11 +3,12 @@ module Authenticator
 
   private
 
+  def current_user
+    User.where(auth_token: request.headers['AuthToken']).first
+  end
+
   def check_auth_token
-    auth = request.headers['AuthToken']
-    if auth.presence and auth == Rails.application.secrets[:secret_key_base]
-      return true
-    else
+    if !current_user
       render_403
     end
   end

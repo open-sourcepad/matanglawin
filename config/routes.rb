@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     scope module: :v1 do
       resource :oauth, only: %i(create)
       resources :posts
-      resources :listings, only: %i(create show destroy) do
+      resources :listings, only: %i(create show destroy update) do
         collection do
           get 'lost'
           get 'found'

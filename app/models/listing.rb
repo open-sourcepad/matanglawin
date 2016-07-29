@@ -14,6 +14,7 @@
 #  updated_at  :datetime         not null
 #  mytype      :string
 #  image_url   :string
+#  user_id     :integer
 #
 
 class Listing < ApplicationRecord
@@ -24,14 +25,14 @@ class Listing < ApplicationRecord
   validates :contact, presence: true
   validates :lambdal_id, uniqueness: true, presence: :true
   validates :mytype, presence: true, inclusion: { in: MYTYPE}
-
   before_validation :generate_lambdal_id, unless: :lambdal_id?
+  belongs_to :user
 
   private
 
   def generate_lambdal_id
     loop do
-      self.lambdal_id = SecureRandom.uuid
+      self.lambdal_id = SecureRandom.hex
       break if Listing.where(lambdal_id: self.lambdal_id).empty?
     end
   end

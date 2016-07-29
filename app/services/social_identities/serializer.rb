@@ -7,7 +7,7 @@ module SocialIdentities
 
     def serializable_hash
       hash = @object.attributes
-      hash["authentication_token"] = Rails.application.secrets[:secret_key_base]
+      hash["user"] = @object.user.attributes
       hash
     end
   end
