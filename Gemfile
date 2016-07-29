@@ -14,7 +14,9 @@ gem 'bcrypt'
 gem 'pg'
 gem 'oj'
 gem 'multi_json'
+gem 'figaro'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'unirest', require: false
 
 group :development, :test do
   gem 'byebug', platform: :mri

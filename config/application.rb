@@ -12,15 +12,13 @@ module Finder
     config.middleware.delete "ActionDispatch::Cookies"
     config.middleware.delete "ActionDispatch::Session::CookieStore"
     config.middleware.delete "ActionDispatch::Flash"
-    config.serve_static_files = true
+    config.public_file_server.enabled = true
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'controllers', '{**}')]
 
     config.active_record.raise_in_transactional_callbacks = true
     config.angular_templates.inside_paths   = ['client/src']
     config.session_store :disabled
-    config.action_mailer.preview_path = "#{Rails.root}/app/mailers/preview"
-    config.active_job.queue_adapter = :sidekiq
     config.autoload_paths << Rails.root.join('app/services/**')
     config.generators do |g|
       g.template_engine nil
@@ -28,6 +26,12 @@ module Finder
       g.assets  false
       g.helper false
       g.stylesheets false
+    end
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
     end
   end
 end
