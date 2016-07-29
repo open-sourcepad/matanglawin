@@ -11,7 +11,7 @@ class Api::V1::OauthsController < ApiController
     elsif !social_identity.valid?
       render_error(social_identity)
     else
-      render_object social_identity, SocialIdentity::Serializer
+      render_object social_identity, SocialIdentities::Serializer
     end
   end
 
