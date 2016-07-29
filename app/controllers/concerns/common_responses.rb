@@ -15,6 +15,10 @@ module CommonResponses
     render json: { errors: object.errors.full_messages }, status: 400
   end
 
+  def render_collection collection
+    render json: { collection: collection}, status: 200
+  end
+
   def render_403
     render json: { error: 'Access Denied' }, status: 403
   end
