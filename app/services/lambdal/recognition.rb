@@ -3,7 +3,7 @@ module Lambdal
     def recognize mytype, url
       path = "#{BASE_URL}recognize"
       params= {
-        album: mytype,
+        album: ENV.fetch("#{mytype}_NAME"),
         albumkey: ENV.fetch("#{mytype}_KEY"),
         urls: url
       }

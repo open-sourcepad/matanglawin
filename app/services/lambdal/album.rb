@@ -2,12 +2,12 @@ module Lambdal
   module Album
 
     def get_album mytype
-      path = "#{BASE_URL}album?album=#{mytype}&albumkey=#{ENV.fetch("#{mytype}_KEY")}"
+      path = "#{BASE_URL}album?album=#{ENV.fetch("#{mytype}_NAME")}&albumkey=#{ENV.fetch("#{mytype}_KEY")}"
       perform_get path
     end
 
     def rebuild_album mytype
-      path = "#{BASE_URL}album_rebuild?album=#{mytype}&albumkey=#{ENV.fetch("#{mytype}_KEY")}"
+      path = "#{BASE_URL}album_rebuild?album=#{ENV.fetch("#{mytype}_NAME")}&albumkey=#{ENV.fetch("#{mytype}_KEY")}"
       perform_get path
     end
 
@@ -15,13 +15,13 @@ module Lambdal
       path = "#{BASE_URL}album_train"
       attachment = Attachment.create image: File.open(image_path)
       params= {
-        album: mytype,
+        album: ENV.fetch("#{mytype}_NAME"),
         albumkey: ENV.fetch("#{mytype}_KEY"),
         entryid: lambdal_id,
         urls: "#{ENV.fetch("BASE_URL")}#{attachment.image.url}"
       }
       response = perform_post path, params
-      attachment.destroy
+      #attachment.destroy
       response
     end
 
