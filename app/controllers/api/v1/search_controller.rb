@@ -2,14 +2,14 @@ class Api::V1::SearchController < ApiController
   before_action :get_listing, only: [:lost, :found]
 
   def lost
-    lambdal = Lambdal::Client.new.recognize("LOST", @listing.image_url)
-    collection = query_by_listing(lambdal,"LOST")
+    lambdal = Lambdal::Client.new.recognize(ENV.fetch("LOST_NAME"), @listing.image_url)
+    collection = query_by_listing(lambdal,ENV.fetch("LOST_NAME"))
     render_collection collection
   end
 
   def found
-    lambdal = Lambdal::Client.new.recognize("FOUND", @listing.image_url)
-    collection = query_by_listing(lambdal,"FOUND")
+    lambdal = Lambdal::Client.new.recognize(ENV.fetch("FOUND_NAME"), @listing.image_url)
+    collection = query_by_listing(lambdal,ENV.fetch("FOUND_NAME"))
     render_collection collection
   end
 
