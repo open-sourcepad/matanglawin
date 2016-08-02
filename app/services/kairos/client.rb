@@ -1,8 +1,8 @@
-module Lambdal
-  BASE_URL = "https://lambda-face-recognition.p.mashape.com/"
+module Kairos
+  BASE_URL = "https://api.kairos.com/"
   class Client
     include Utils
-    include Album
+    include Gallery
     include Recognition
 
     def initialize

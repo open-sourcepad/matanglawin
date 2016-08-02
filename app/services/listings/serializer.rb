@@ -10,11 +10,12 @@ module Listings
       hash
     end
 
-    def serializable_group_hash lambdal_results
+    def serializable_group_hash candidates
       collection = []
       @object.each do |o|
         hash = o.attributes
-        hash["match"] = lambdal_results.select{|r| r["uid"] == o["lambdal_id"]}.first.to_h["confidence"]
+        hash["image_url"] = o.image_url
+        hash["match"] = candidates[o.lambdal_id]
         collection << hash
       end
       collection.sort_by{|object| -object["match"].to_f}

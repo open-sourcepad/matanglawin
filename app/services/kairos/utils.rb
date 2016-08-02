@@ -1,4 +1,4 @@
-module Lambdal
+module Kairos
   module Utils
     def perform_get path
       begin
@@ -18,7 +18,7 @@ module Lambdal
 
     def perform_post path, params
       Rails.logger.info "POST #{path} | PARAMS #{params}"
-      response = RestClient::Request.execute(method: :post, url: path, payload: params, headers: get_headers)
+      response = RestClient::Request.execute(method: :post, url: path, payload: params.to_json, headers: get_headers)
       Rails.logger.info "RESPONSE #{response.code} | BODY #{JSON.parse(response)}"
       {
         code: response.code,
@@ -28,8 +28,9 @@ module Lambdal
 
     def get_headers
       {
-        "X-Mashape-Key" => ENV.fetch('MASHAPE_KEY'),
-        "Accept" => "application/json"
+        "Content-Type" => "application/json",
+        "app_id" => ENV.fetch("APP_ID"),
+        "app_key" => ENV.fetch("APP_KEY")
       }
     end
   end

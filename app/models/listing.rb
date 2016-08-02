@@ -35,6 +35,11 @@ class Listing < ApplicationRecord
   validates :mytype, presence: true, inclusion: { in: MYTYPE}
   before_validation :generate_lambdal_id, unless: :lambdal_id?
   belongs_to :user
+  has_one :attachment, dependent: :destroy
+
+  def image_url
+    "#{ENV.fetch("BASE_URL")}#{attachment.image.url}"
+  end
 
   private
 

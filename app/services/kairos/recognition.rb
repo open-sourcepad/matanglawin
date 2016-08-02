@@ -1,11 +1,10 @@
-module Lambdal
+module Kairos
   module Recognition
     def recognize mytype, url
       path = "#{BASE_URL}recognize"
       params= {
-        album: ENV.fetch("#{mytype}_NAME"),
-        albumkey: ENV.fetch("#{mytype}_KEY"),
-        urls: url
+        gallery_name: ENV.fetch("#{mytype}_NAME"),
+        image: url
       }
       perform_post path, params
     end

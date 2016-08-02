@@ -46,9 +46,7 @@ class Api::V1::ListingsController < ApiController
   end
 
   def process_lambdal obj
-    Lambdal::Client.new.train_album(obj.mytype, obj.lambdal_id, image_param["image"].tempfile.path)
-    entry = Lambdal::Client.new.get_entry(obj.mytype, obj.lambdal_id)
-    Lambdal::Client.new.rebuild_album(obj.mytype)
-    obj.update_attributes image_url: entry["image"]
+    attachment = obj.create_attachment image: File.open(image_param["image"].tempfile.path)
+    Kairos::Client.new.enroll(obj.mytype, obj.lambdal_id, "#{ENV.fetch("BASE_URL")}#{attachment.image.url}")
   end
 end
